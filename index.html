@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <!-- 編碼要放最前：避免亂碼 -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>作業：HTML + CSS + JS（表單＋表格 Posts/Users）</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <h1>前端作業完整範例</h1>
+        <nav class="nav">
+          <a href="#form-demo">表單</a>
+          <a href="#posts-demo">貼文表格</a>
+          <a href="#users-demo">使用者表格</a>
+          <a href="https://jsonplaceholder.typicode.com" target="_blank" rel="noopener">JSONPlaceholder</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- 表單區域 -->
+      <section id="form-demo" class="card">
+        <h2>表單：輸入 ➜ 送出 ➜ 顯示內容（含欄位驗證）</h2>
+        <p class="muted">示範使用 HTML5 驗證 + JavaScript 自訂訊息。送出後會在下方「送出結果」區塊呈現。</p>
+
+        <form id="contactForm" novalidate>
+          <div class="grid">
+            <div class="field">
+              <label for="name">姓名 <span class="req">*</span></label>
+              <input id="name" name="name" type="text" placeholder="王小明" required maxlength="30" />
+              <small class="error" data-for="name"></small>
+            </div>
+
+            <div class="field">
+              <label for="email">Email <span class="req">*</span></label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required />
+              <small class="error" data-for="email"></small>
+            </div>
+
+            <div class="field">
+              <label for="age">年齡</label>
+              <input id="age" name="age" type="number" min="1" max="120" placeholder="20" />
+              <small class="error" data-for="age"></small>
+            </div>
+
+            <div class="field span-2">
+              <label for="message">留言內容 <span class="req">*</span></label>
+              <textarea id="message" name="message" rows="4" placeholder="請輸入留言" required minlength="5"></textarea>
+              <small class="error" data-for="message"></small>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="btn primary">送出</button>
+            <button type="reset" class="btn">清除</button>
+          </div>
+        </form>
+
+        <div class="result" aria-live="polite">
+          <h3>送出結果</h3>
+          <div id="submitResult" class="result-body">（送出後會顯示在這裡）</div>
+        </div>
+      </section>
+
+      <!-- 貼文表格區域（posts） -->
+      <section id="posts-demo" class="card">
+        <h2>表格：用 <code>fetch</code> 取得 JSONPlaceholder 貼文資料</h2>
+        <p class="muted">來源：<code>GET https://jsonplaceholder.typicode.com/posts</code>（示範假 API）。僅顯示前 10 筆。</p>
+
+        <div class="toolbar">
+          <input id="filterPosts" class="input" type="search" placeholder="以標題關鍵字過濾…" />
+          <button id="reloadPosts" class="btn" type="button">重新載入</button>
+        </div>
+
+        <div class="table-wrap">
+          <table id="postsTable">
+            <thead>
+              <tr>
+                <th style="width:72px">ID</th>
+                <th>標題</th>
+                <th>內容（前 80 字）</th>
+              </tr>
+            </thead>
+            <tbody><!-- 由 JS 動態插入 --></tbody>
+          </table>
+          <div id="statePosts" class="table-state muted">載入中…</div>
+        </div>
+      </section>
+
+      <!-- 使用者表格區域（users） -->
+      <section id="users-demo" class="card">
+        <h2>表格：用 <code>fetch</code> 取得 JSONPlaceholder 使用者資料</h2>
+        <p class="muted">來源：<code>GET https://jsonplaceholder.typicode.com/users</code></p>
+
+        <div class="toolbar">
+          <input id="filterUsers" class="input" type="search" placeholder="搜尋姓名或 Email…" />
+          <button id="reloadUsers" class="btn" type="button">重新載入</button>
+        </div>
+
+        <div class="table-wrap">
+          <table id="usersTable">
+            <thead>
+              <tr>
+                <th style="width:72px">ID</th>
+                <th>姓名</th>
+                <th>Email</th>
+                <th>公司</th>
+                <th>城市</th>
+              </tr>
+            </thead>
+            <tbody><!-- 由 JS 動態插入 --></tbody>
+          </table>
+          <div id="stateUsers" class="table-state muted">載入中…</div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">© 2025 作業示範．HTML + CSS + JS</div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
